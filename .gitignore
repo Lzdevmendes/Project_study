@@ -1,0 +1,68 @@
+# Arquivos acadêmicos - NÃO devem ir para repositório público
+passo1_instrucoes_trello.txt
+passo3_logica_tabelas_verdade.txt
+passo4_pseudocodigo_fila.txt
+passo5_diagrama_casos_uso.txt
+SUMARIO_PROJETO.txt
+GUIA_RAPIDO.txt
+
+# PDF do projeto da faculdade
+*.pdf
+
+# Documentos Word do trabalho
+*.docx
+*.doc
+
+# Arquivos temporários do Office
+~$*.docx
+~$*.doc
+
+# Prints e imagens do trabalho
+prints/
+capturas/
+imagens_trabalho/
+
+# Arquivos de backup
+*.bak
+*.backup
+*~
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
