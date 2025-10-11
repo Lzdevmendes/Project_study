@@ -1,0 +1,206 @@
+===============================================
+PASSO 4 - PSEUDOCÓDIGO: SISTEMA DE FILA DE ATENDIMENTO
+Clínica Vida+ - Gestão de Fila de Pacientes
+===============================================
+
+ALGORITMO GestaoFilaPacientes
+
+INÍCIO
+    // Declaração da estrutura de dados
+    DECLARAR fila_pacientes COMO LISTA VAZIA
+
+    // Estrutura para representar um paciente
+    TIPO Paciente:
+        nome: TEXTO
+        cpf: TEXTO
+    FIM_TIPO
+
+    // ========================================
+    // FUNÇÃO 1: INSERIR PACIENTE NA FILA
+    // ========================================
+    FUNÇÃO inserir_paciente_na_fila(fila, nome, cpf):
+        CRIAR novo_paciente DO TIPO Paciente
+        novo_paciente.nome ← nome
+        novo_paciente.cpf ← cpf
+
+        ADICIONAR novo_paciente NO FINAL DA fila
+        EXIBIR "✅ Paciente", nome, "adicionado à fila com sucesso!"
+    FIM_FUNÇÃO
+
+    // ========================================
+    // FUNÇÃO 2: REMOVER PRIMEIRO PACIENTE (ATENDIMENTO)
+    // ========================================
+    FUNÇÃO atender_proximo_paciente(fila):
+        SE fila ESTÁ VAZIA ENTÃO
+            EXIBIR "❌ Não há pacientes na fila para atendimento!"
+            RETORNAR NULL
+        FIM_SE
+
+        paciente_atendido ← REMOVER PRIMEIRO ELEMENTO DA fila
+        EXIBIR "🏥 Atendendo paciente:", paciente_atendido.nome
+        EXIBIR "📋 CPF:", paciente_atendido.cpf
+
+        RETORNAR paciente_atendido
+    FIM_FUNÇÃO
+
+    // ========================================
+    // FUNÇÃO 3: MOSTRAR PACIENTES NA FILA
+    // ========================================
+    FUNÇÃO mostrar_fila(fila):
+        SE fila ESTÁ VAZIA ENTÃO
+            EXIBIR "❌ A fila está vazia!"
+            RETORNAR
+        FIM_SE
+
+        EXIBIR "\n========================================="
+        EXIBIR "       PACIENTES NA FILA DE ESPERA"
+        EXIBIR "========================================="
+        EXIBIR "Total de pacientes aguardando:", TAMANHO(fila)
+        EXIBIR ""
+
+        PARA i DE 0 ATÉ TAMANHO(fila) - 1 FAÇA
+            EXIBIR "Posição", (i + 1), ":"
+            EXIBIR "  Nome:", fila[i].nome
+            EXIBIR "  CPF:", fila[i].cpf
+            EXIBIR "-----------------------------------------"
+        FIM_PARA
+    FIM_FUNÇÃO
+
+    // ========================================
+    // PROGRAMA PRINCIPAL
+    // ========================================
+    EXIBIR "========================================="
+    EXIBIR "   SISTEMA DE FILA - CLÍNICA VIDA+"
+    EXIBIR "========================================="
+    EXIBIR ""
+
+    // PASSO 1: Inserir 3 pacientes na fila
+    EXIBIR "📝 INSERINDO PACIENTES NA FILA..."
+    EXIBIR ""
+
+    inserir_paciente_na_fila(fila_pacientes, "João Silva", "123.456.789-00")
+    inserir_paciente_na_fila(fila_pacientes, "Maria Santos", "987.654.321-00")
+    inserir_paciente_na_fila(fila_pacientes, "Pedro Oliveira", "456.789.123-00")
+
+    EXIBIR ""
+    EXIBIR "========================================="
+    EXIBIR ""
+
+    // Mostrar fila completa
+    EXIBIR "📋 FILA INICIAL:"
+    mostrar_fila(fila_pacientes)
+
+    EXIBIR ""
+    EXIBIR "========================================="
+    EXIBIR ""
+
+    // PASSO 2: Remover o primeiro paciente (atendimento)
+    EXIBIR "🏥 REALIZANDO ATENDIMENTO..."
+    EXIBIR ""
+    atender_proximo_paciente(fila_pacientes)
+
+    EXIBIR ""
+    EXIBIR "========================================="
+    EXIBIR ""
+
+    // PASSO 3: Mostrar quem ainda está na fila
+    EXIBIR "📋 FILA APÓS PRIMEIRO ATENDIMENTO:"
+    mostrar_fila(fila_pacientes)
+
+    EXIBIR ""
+    EXIBIR "========================================="
+    EXIBIR "   SISTEMA FINALIZADO"
+    EXIBIR "========================================="
+
+FIM
+
+
+===============================================
+EXPLICAÇÃO DO ALGORITMO
+===============================================
+
+1. ESTRUTURA DE DADOS:
+   - Utiliza uma LISTA (fila) para armazenar os pacientes
+   - Cada paciente é um registro com nome e CPF
+   - Segue o princípio FIFO (First In, First Out)
+
+2. OPERAÇÕES PRINCIPAIS:
+   a) INSERIR: Adiciona paciente no final da fila
+   b) REMOVER: Remove e retorna o primeiro da fila
+   c) MOSTRAR: Exibe todos os pacientes na ordem
+
+3. FLUXO DE EXECUÇÃO:
+   - Insere 3 pacientes na fila
+   - Exibe a fila completa
+   - Atende o primeiro paciente (remove da fila)
+   - Exibe a fila atualizada com os 2 pacientes restantes
+
+4. CONCEITOS APLICADOS:
+   - Estrutura de dados: FILA (Queue)
+   - Tipo abstrato de dados
+   - Manipulação de listas
+   - Funções/procedimentos
+   - Estruturas de repetição e decisão
+
+===============================================
+EXEMPLO DE SAÍDA ESPERADA
+===============================================
+
+=========================================
+   SISTEMA DE FILA - CLÍNICA VIDA+
+=========================================
+
+📝 INSERINDO PACIENTES NA FILA...
+
+✅ Paciente João Silva adicionado à fila com sucesso!
+✅ Paciente Maria Santos adicionado à fila com sucesso!
+✅ Paciente Pedro Oliveira adicionado à fila com sucesso!
+
+=========================================
+
+📋 FILA INICIAL:
+=========================================
+       PACIENTES NA FILA DE ESPERA
+=========================================
+Total de pacientes aguardando: 3
+
+Posição 1 :
+  Nome: João Silva
+  CPF: 123.456.789-00
+-----------------------------------------
+Posição 2 :
+  Nome: Maria Santos
+  CPF: 987.654.321-00
+-----------------------------------------
+Posição 3 :
+  Nome: Pedro Oliveira
+  CPF: 456.789.123-00
+-----------------------------------------
+
+=========================================
+
+🏥 REALIZANDO ATENDIMENTO...
+
+🏥 Atendendo paciente: João Silva
+📋 CPF: 123.456.789-00
+
+=========================================
+
+📋 FILA APÓS PRIMEIRO ATENDIMENTO:
+=========================================
+       PACIENTES NA FILA DE ESPERA
+=========================================
+Total de pacientes aguardando: 2
+
+Posição 1 :
+  Nome: Maria Santos
+  CPF: 987.654.321-00
+-----------------------------------------
+Posição 2 :
+  Nome: Pedro Oliveira
+  CPF: 456.789.123-00
+-----------------------------------------
+
+=========================================
+   SISTEMA FINALIZADO
+=========================================
