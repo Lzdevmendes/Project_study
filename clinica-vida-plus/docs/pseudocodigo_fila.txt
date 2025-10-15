@@ -1,0 +1,194 @@
+================================================================================
+                    ALGORITMO DE FILA DE ATENDIMENTO
+                          CLÍNICA VIDA+
+================================================================================
+
+ALGORITMO FilaAtendimento
+INÍCIO
+    // Declaração de variáveis
+    DECLARAR fila_emergencia COMO Lista Vazia
+    DECLARAR fila_preferencial COMO Lista Vazia
+    DECLARAR fila_normal COMO Lista Vazia
+
+    // ========================================================================
+    // PASSO 1: Inserir pacientes na fila
+    // ========================================================================
+
+    ESCREVER "=== INSERINDO PACIENTES NA FILA ==="
+
+    // Paciente 1: João da Silva - Fila Normal
+    DECLARAR paciente1 COMO Registro
+    paciente1.nome ← "João da Silva"
+    paciente1.cpf ← "123.456.789-09"
+    paciente1.prioridade ← "normal"
+
+    INSERIR paciente1 NO FINAL DE fila_normal
+    ESCREVER "Paciente", paciente1.nome, "adicionado à fila NORMAL"
+
+    // Paciente 2: Maria Santos - Fila Preferencial
+    DECLARAR paciente2 COMO Registro
+    paciente2.nome ← "Maria Santos"
+    paciente2.cpf ← "987.654.321-00"
+    paciente2.prioridade ← "preferencial"
+
+    INSERIR paciente2 NO FINAL DE fila_preferencial
+    ESCREVER "Paciente", paciente2.nome, "adicionado à fila PREFERENCIAL"
+
+    // Paciente 3: Pedro Oliveira - Fila Normal
+    DECLARAR paciente3 COMO Registro
+    paciente3.nome ← "Pedro Oliveira"
+    paciente3.cpf ← "111.222.333-44"
+    paciente3.prioridade ← "normal"
+
+    INSERIR paciente3 NO FINAL DE fila_normal
+    ESCREVER "Paciente", paciente3.nome, "adicionado à fila NORMAL"
+
+    // ========================================================================
+    // PASSO 2: Mostrar fila completa antes do atendimento
+    // ========================================================================
+
+    ESCREVER ""
+    ESCREVER "=== FILA COMPLETA ==="
+
+    SE TAMANHO(fila_emergencia) > 0 ENTÃO
+        ESCREVER "EMERGÊNCIA:", TAMANHO(fila_emergencia), "paciente(s)"
+        PARA CADA paciente EM fila_emergencia FAÇA
+            ESCREVER "  -", paciente.nome, "(CPF:", paciente.cpf, ")"
+        FIM_PARA
+    FIM_SE
+
+    SE TAMANHO(fila_preferencial) > 0 ENTÃO
+        ESCREVER "PREFERENCIAL:", TAMANHO(fila_preferencial), "paciente(s)"
+        PARA CADA paciente EM fila_preferencial FAÇA
+            ESCREVER "  -", paciente.nome, "(CPF:", paciente.cpf, ")"
+        FIM_PARA
+    FIM_SE
+
+    SE TAMANHO(fila_normal) > 0 ENTÃO
+        ESCREVER "NORMAL:", TAMANHO(fila_normal), "paciente(s)"
+        PARA CADA paciente EM fila_normal FAÇA
+            ESCREVER "  -", paciente.nome, "(CPF:", paciente.cpf, ")"
+        FIM_PARA
+    FIM_SE
+
+    // ========================================================================
+    // PASSO 3: Remover primeiro paciente (ordem de prioridade)
+    // ========================================================================
+
+    ESCREVER ""
+    ESCREVER "=== CHAMANDO PRÓXIMO PACIENTE ==="
+
+    DECLARAR proximo_paciente COMO Registro
+
+    // Ordem de prioridade: Emergência > Preferencial > Normal
+    SE TAMANHO(fila_emergencia) > 0 ENTÃO
+        proximo_paciente ← REMOVER_PRIMEIRO(fila_emergencia)
+    SENÃO SE TAMANHO(fila_preferencial) > 0 ENTÃO
+        proximo_paciente ← REMOVER_PRIMEIRO(fila_preferencial)
+    SENÃO SE TAMANHO(fila_normal) > 0 ENTÃO
+        proximo_paciente ← REMOVER_PRIMEIRO(fila_normal)
+    FIM_SE
+
+    ESCREVER "Chamando:", proximo_paciente.nome
+    ESCREVER "CPF:", proximo_paciente.cpf
+    ESCREVER "Prioridade:", proximo_paciente.prioridade
+
+    // ========================================================================
+    // PASSO 4: Mostrar pacientes restantes na fila
+    // ========================================================================
+
+    ESCREVER ""
+    ESCREVER "=== PACIENTES RESTANTES NA FILA ==="
+
+    DECLARAR total_restante COMO Inteiro
+    total_restante ← TAMANHO(fila_emergencia) + TAMANHO(fila_preferencial) + TAMANHO(fila_normal)
+
+    ESCREVER "Total de pacientes aguardando:", total_restante
+    ESCREVER ""
+
+    SE TAMANHO(fila_emergencia) > 0 ENTÃO
+        ESCREVER "EMERGÊNCIA:", TAMANHO(fila_emergencia), "paciente(s)"
+        PARA CADA paciente EM fila_emergencia FAÇA
+            ESCREVER "  -", paciente.nome, "(CPF:", paciente.cpf, ")"
+        FIM_PARA
+    FIM_SE
+
+    SE TAMANHO(fila_preferencial) > 0 ENTÃO
+        ESCREVER "PREFERENCIAL:", TAMANHO(fila_preferencial), "paciente(s)"
+        PARA CADA paciente EM fila_preferencial FAÇA
+            ESCREVER "  -", paciente.nome, "(CPF:", paciente.cpf, ")"
+        FIM_PARA
+    FIM_SE
+
+    SE TAMANHO(fila_normal) > 0 ENTÃO
+        ESCREVER "NORMAL:", TAMANHO(fila_normal), "paciente(s)"
+        PARA CADA paciente EM fila_normal FAÇA
+            ESCREVER "  -", paciente.nome, "(CPF:", paciente.cpf, ")"
+        FIM_PARA
+    FIM_SE
+
+    SE total_restante = 0 ENTÃO
+        ESCREVER "Nenhum paciente aguardando na fila"
+    FIM_SE
+
+FIM
+
+================================================================================
+                        EXPLICAÇÃO DO ALGORITMO
+================================================================================
+
+1. ESTRUTURA DE DADOS:
+   - Utiliza três filas independentes (listas)
+   - Cada fila corresponde a um nível de prioridade
+   - Estrutura FIFO (First In, First Out) em cada fila
+
+2. PRIORIDADES:
+   - Emergência: Prioridade máxima (atendido primeiro)
+   - Preferencial: Prioridade média (atendido após emergências)
+   - Normal: Prioridade padrão (atendido por último)
+
+3. OPERAÇÕES PRINCIPAIS:
+   - INSERIR: Adiciona paciente no final da fila apropriada
+   - REMOVER_PRIMEIRO: Remove e retorna o primeiro da fila de maior prioridade
+   - MOSTRAR: Exibe todos os pacientes em todas as filas
+
+4. COMPLEXIDADE:
+   - Inserção: O(1) - tempo constante
+   - Remoção: O(1) - tempo constante
+   - Visualização: O(n) - proporcional ao número de pacientes
+
+5. VANTAGENS:
+   - Garante ordem de atendimento justa dentro de cada prioridade
+   - Emergências sempre atendidas primeiro
+   - Fácil de implementar e manter
+   - Escalável para grande volume de pacientes
+
+================================================================================
+                    EXEMPLO DE EXECUÇÃO DO ALGORITMO
+================================================================================
+
+ENTRADA:
+    Paciente 1: João da Silva (CPF: 123.456.789-09) - Normal
+    Paciente 2: Maria Santos (CPF: 987.654.321-00) - Preferencial
+    Paciente 3: Pedro Oliveira (CPF: 111.222.333-44) - Normal
+
+PROCESSAMENTO:
+    Fila Emergência: []
+    Fila Preferencial: [Maria Santos]
+    Fila Normal: [João da Silva, Pedro Oliveira]
+
+PRÓXIMO ATENDIMENTO:
+    Maria Santos (Preferencial tem prioridade sobre Normal)
+
+APÓS REMOÇÃO:
+    Fila Emergência: []
+    Fila Preferencial: []
+    Fila Normal: [João da Silva, Pedro Oliveira]
+
+SAÍDA:
+    Paciente chamado: Maria Santos (CPF: 987.654.321-00)
+    Pacientes restantes: 2
+    - João da Silva (Normal)
+    - Pedro Oliveira (Normal)
+
+================================================================================

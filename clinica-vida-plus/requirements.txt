@@ -1,0 +1,14 @@
+# Sistema de Gestão - Clínica Vida+
+# Dependências do projeto
+
+# Interface colorida no terminal
+colorama>=0.4.6
+
+# Nota: As seguintes bibliotecas são nativas do Python 3.8+
+# e não precisam ser instaladas:
+# - json (persistência de dados)
+# - datetime (timestamps)
+# - re (validação com regex)
+# - collections (estruturas de dados)
+# - typing (type hints)
+# - os (operações de sistema)
