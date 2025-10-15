@@ -1,0 +1,151 @@
+@startuml Diagrama_Casos_Uso_Clinica_Vida_Plus
+
+' Configurações de estilo
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+skinparam backgroundColor #FEFEFE
+skinparam actorBorderColor #2C3E50
+skinparam actorBackgroundColor #3498DB
+skinparam usecaseBorderColor #2C3E50
+skinparam usecaseBackgroundColor #ECF0F1
+
+title Sistema de Gestão - Clínica Vida+\nDiagrama de Casos de Uso
+
+' Atores
+actor "Secretária" as secretaria #LightBlue
+actor "Médico" as medico #LightGreen
+actor "Paciente" as paciente #LightYellow
+
+' Pacote do Sistema
+rectangle "Sistema Clínica Vida+" {
+
+    ' Casos de Uso - Gestão de Pacientes
+    package "Gestão de Pacientes" {
+        usecase "Cadastrar Paciente" as UC1
+        usecase "Buscar Paciente" as UC2
+        usecase "Atualizar Dados\ndo Paciente" as UC3
+        usecase "Visualizar Histórico\ndo Paciente" as UC4
+    }
+
+    ' Casos de Uso - Agendamentos
+    package "Gestão de Agendamentos" {
+        usecase "Agendar Consulta" as UC5
+        usecase "Confirmar Consulta" as UC6
+        usecase "Cancelar Consulta" as UC7
+        usecase "Reagendar Consulta" as UC8
+        usecase "Verificar Disponibilidade\nde Médico" as UC9
+    }
+
+    ' Casos de Uso - Atendimento
+    package "Atendimento" {
+        usecase "Gerenciar Fila\nde Atendimento" as UC10
+        usecase "Chamar Próximo\nPaciente" as UC11
+        usecase "Realizar Atendimento" as UC12
+        usecase "Registrar Diagnóstico" as UC13
+    }
+
+    ' Casos de Uso - Receitas
+    package "Prescrições" {
+        usecase "Gerar Receita" as UC14
+        usecase "Imprimir Receita" as UC15
+        usecase "Registrar Medicamentos" as UC16
+    }
+
+    ' Casos de Uso - Controle de Acesso
+    package "Controle de Acesso" {
+        usecase "Validar Documentos" as UC17
+        usecase "Verificar Pagamentos" as UC18
+        usecase "Autorizar Atendimento" as UC19
+    }
+
+    ' Casos de Uso - Relatórios
+    package "Relatórios e Estatísticas" {
+        usecase "Gerar Relatório\nde Atendimentos" as UC20
+        usecase "Visualizar Estatísticas\nde Pacientes" as UC21
+        usecase "Exportar Dados" as UC22
+    }
+}
+
+' Relacionamentos da Secretária
+secretaria --> UC1
+secretaria --> UC2
+secretaria --> UC3
+secretaria --> UC5
+secretaria --> UC6
+secretaria --> UC7
+secretaria --> UC8
+secretaria --> UC10
+secretaria --> UC11
+secretaria --> UC17
+secretaria --> UC18
+secretaria --> UC20
+secretaria --> UC21
+
+' Relacionamentos do Médico
+medico --> UC4
+medico --> UC9
+medico --> UC12
+medico --> UC13
+medico --> UC14
+medico --> UC16
+medico --> UC20
+
+' Relacionamentos do Paciente
+paciente --> UC5 : "Pode solicitar"
+paciente --> UC7 : "Pode solicitar"
+
+' Relacionamentos Include
+UC5 ..> UC1 : <<include>>
+UC6 ..> UC1 : <<include>>
+UC8 ..> UC7 : <<include>>
+UC8 ..> UC5 : <<include>>
+UC14 ..> UC15 : <<include>>
+UC12 ..> UC4 : <<include>>
+UC19 ..> UC17 : <<include>>
+UC19 ..> UC18 : <<include>>
+UC5 ..> UC9 : <<include>>
+
+' Relacionamentos Extend
+UC5 ..> UC19 : <<extend>>
+UC12 ..> UC14 : <<extend>>
+UC14 ..> UC16 : <<extend>>
+UC20 ..> UC22 : <<extend>>
+
+' Notas explicativas
+note right of UC1
+  Pré-condição: Nenhuma
+  Pós-condição: Paciente cadastrado
+  no sistema com CPF validado
+end note
+
+note right of UC5
+  Pré-condição: Paciente deve
+  estar cadastrado no sistema
+  Pós-condição: Consulta agendada
+  com médico disponível
+end note
+
+note right of UC6
+  Pré-condição: Consulta deve
+  estar agendada previamente
+  Pós-condição: Consulta confirmada
+end note
+
+note right of UC14
+  Sempre inclui a impressão
+  da receita após geração
+end note
+
+note left of UC19
+  Valida documentos e pagamentos
+  antes de autorizar atendimento
+end note
+
+note bottom of UC10
+  Gerencia três tipos de fila:
+  - Emergência (prioridade máxima)
+  - Preferencial (prioridade média)
+  - Normal (prioridade padrão)
+end note
+
+@enduml
